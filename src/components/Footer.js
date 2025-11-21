@@ -4,22 +4,34 @@ import { motion } from 'framer-motion';
 import logo from '../assets/Footer-logo.png';
 
 const Footer = () => {
+    // --- UPDATED: Links now include an internal anchor ---
   const projects = [
-    { name: "TechStart Brand Launch", path: "/projects" },
-    { name: "E-commerce Growth", path: "/projects" },
-    { name: "Local Business SEO", path: "/projects" },
-    { name: "SaaS Product Launch", path: "/projects" },
+    { name: "Professional websites | Metatech Technocraft LLP", url: "https://metatechtechnocraft.com/" }, // External
+    { name: "Personal Portfolio | Suyash Shrivastava", url: "https://suyashshrivastava.in" },
+    { name: "Offline Advertisement Design", url: "#portfolio-section" },
+    { name: "Content Creation For Social Media", url: "#portfolio-section" }, // Internal Scroll
   ];
+
+  // Handles smooth scrolling for internal links
+  const handleProjectClick = (e, url) => {
+    if (url.startsWith('#')) {
+      e.preventDefault();
+      const element = document.querySelector(url);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   // In Footer.js
 const services = [
-    { name: "Brand Design", path: "/#services-section" },
-    { name: "Digital Marketing", path: "/#services-section" },
-    { name: "Web Development & SEO", path: "/#services-section" },
-    { name: "UGC & Content Creation", path: "/#services-section" },
-    { name: "Email Marketing", path: "/#services-section" },
-    { name: "Omni-Presence Marketing", path: "/#services-section" },
-];
+    { name: "Brand Design", url: "#services-section" },
+    { name: "Digital Marketing", url: "#services-section" },
+    { name: "Web Development & SEO", url: "#services-section" },
+    { name: "UGC & Content Creation", url: "#services-section" },
+    { name: "Email Marketing", url: "#services-section" },
+    { name: "Omni-Presence Marketing", url: "#services-section" },
+  ];
 
   // New data structure for social media links with specific icons
 const socialLinks = [
@@ -56,7 +68,17 @@ const socialLinks = [
           <h4>Projects</h4>
           <ul>
             {projects.map((project, index) => (
-              <li key={index}><Link to={project.path}>{project.name}</Link></li>
+              <li key={index}>
+                <a 
+                  href={project.url}
+                  // If it's a hash link (#), open in same tab. If external, open in new tab.
+                  target={project.url.startsWith('#') ? "_self" : "_blank"}
+                  rel={project.url.startsWith('#') ? "" : "noopener noreferrer"}
+                  onClick={(e) => handleProjectClick(e, project.url)}
+                >
+                  {project.name}
+                </a>
+              </li>
             ))}
           </ul>
         </div>
@@ -69,7 +91,15 @@ const socialLinks = [
           <h4>Services</h4>
           <ul>
             {services.map((service, index) => (
-              <li key={index}><Link to={service.path}>{service.name}</Link></li>
+              <li key={index}>
+                {/* Added onClick handler for smooth scrolling */}
+                <a 
+                  href={service.url}
+                  onClick={(e) => handleProjectClick(e, service.url)}
+                >
+                  {service.name}
+                </a>
+              </li>
             ))}
           </ul>
         </div>

@@ -22,15 +22,16 @@ import Avatar2 from'../assets/Metatechlogo.png';
 
 const Home = ({ onLetsTalkOpen }) => {
     
-    // 1. Restored the array to use local video paths
+    // 1. Restored array for local videos
     const videoTestimonials = [
         {
-            // Make sure these files exist in your public/videos/ folder!
+            // Ensure this file exists at public/videos/Testimony-dr-Rujuta.mp4
             videoSrc: "/videos/Testimony-dr-Rujuta.mp4", 
             author: "Dr Rujuta Hantodkar Warke",
             avatar: Avatar1
         },
         {
+            // Ensure this file exists at public/videos/Testimony-Metatech.mp4
             videoSrc: "/videos/Testimony-Metatech.mp4",
             author: "MetaTech Technocraft LLP",
             avatar: Avatar2
@@ -129,7 +130,7 @@ const Home = ({ onLetsTalkOpen }) => {
             </section>
 
             {/* --- Portfolio Section --- */}
-            <section className="portfolio-section">
+            <section className="portfolio-section" id="portfolio-section">
                 <div className="container">
                     <h2>Featured Portfolio Projects</h2>
                     <div className="new-portfolio-grid">
@@ -185,7 +186,7 @@ const Home = ({ onLetsTalkOpen }) => {
                             {videoTestimonials.map((testimonial, index) => (
                                 <SwiperSlide key={index}>
                                     <div className="video-card">
-                                        {/* 2. Restored the video wrapper structure */}
+                                        {/* 2. Restored the standard video player */}
                                         <div className="video-wrapper">
                                             <video controls playsInline>
                                                 <source src={testimonial.videoSrc} type="video/mp4" />
@@ -196,6 +197,7 @@ const Home = ({ onLetsTalkOpen }) => {
                                             <img src={testimonial.avatar} alt={testimonial.author} className="author-avatar" />
                                             <div className="author-details">
                                                 <div className="video-author">{testimonial.author}</div>
+                                                {/* Removed role if not in data object to avoid empty div */}
                                             </div>
                                         </div>
                                     </div>
