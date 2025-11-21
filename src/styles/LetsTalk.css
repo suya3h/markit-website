@@ -1,18 +1,29 @@
+/* --- 1. OVERLAY & ANIMATED BACKGROUND --- */
 .lets-talk-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh; /* Use 100vh for full viewport height */
-  background-color: #596ED9;
+  height: 100vh;
   z-index: 2000;
   color: #F4C430;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-y: auto;
-  padding: 4rem 2rem;
-  box-sizing: border-box; /* Ensures padding is included in height/width */
+  overflow: hidden; /* Hide doodles that float off-screen */
+  padding: 2rem;
+  box-sizing: border-box; 
+  
+  /* Animated Gradient Background */
+  background: linear-gradient(315deg, #596ED9, #4a5bb9, #2c3a8e);
+  background-size: 400% 400%;
+  animation: gradient-flow 15s ease infinite;
+}
+
+@keyframes gradient-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .close-button {
@@ -25,187 +36,406 @@
   font-weight: 300;
   color: #F4C430;
   cursor: pointer;
-  z-index: 2001; /* Must be higher than overlay */
+  z-index: 2010; /* Above island */
+}
+
+/* --- 2. THE FLOATING ISLAND --- */
+.lets-talk-island {
+  position: relative; /* Anchor for its children */
+  width: 100%;
+  max-width: 1100px;
+  height: 90vh; /* 90% of screen height */
+  max-height: 800px; /* Max height */
+  background-color: #596ED9; /* Your blue */
+  border-radius: 20px;
+  border: 1px solid #F4C430; /* Gold border */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  overflow: hidden; /* Important for inner layout */
+  display: flex;
 }
 
 .lets-talk-content {
   width: 100%;
-  max-width: 900px;
-  /* This ensures content is visible */
-  opacity: 1; 
-  transform: none; 
+  height: 100%;
+  overflow: auto; /* Content inside the island scrolls */
+  padding: 3rem;
+  box-sizing: border-box;
 }
 
+/* --- 3. TWO-COLUMN LAYOUT (Inside Island) --- */
+.modal-body-layout {
+  display: flex;
+  flex-direction: row;
+  gap: 2.5rem;
+}
+.modal-main-content {
+  flex: 2;
+  min-width: 0;
+}
+.modal-sidebar {
+  flex: 1;
+  padding-top: 13.6rem; /* Aligns with form */
+}
+
+/* --- 4. FORM & CONTENT STYLES (Your Theme) --- */
 .lets-talk-header h1 {
-  font-size: 6rem;
+  font-size: 4.5rem;
   font-weight: 700;
-  letter-spacing: -0.05em;
-  line-height: 1;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
   margin-bottom: 2rem;
+  color: #F4C430;
 }
-
 .lets-talk-header p {
   font-size: 1.1rem;
   line-height: 1.6;
   max-width: 600px;
   margin-bottom: 1rem;
+  color: #F4C430;
+  opacity: 0.9;
 }
-
-.lets-talk-header span {
+.required-fields-small {
+  display: block;
   font-size: 0.8rem;
   text-transform: uppercase;
-  color: #c2bba8ff;
+  color: #F4C430;
+  opacity: 0.7;
+  margin-bottom: 2rem;
 }
 
+/* --- 5. INLINE TOGGLE --- */
+.contact-method-toggle {
+  display: flex;
+  position: relative;
+  background-color: #4a5bb9; 
+  border-radius: 9999px;
+  padding: 6px;
+  border: 1px solid #F4C430;
+  margin: 0 auto 3rem auto;
+  max-width: 400px;
+}
+.toggle-btn {
+  background: transparent; 
+  border: none;
+  padding: 0.6rem 1.25rem;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #F4C430;
+  opacity: 0.7;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-width: 120px;
+}
+.toggle-btn svg {
+  width: 18px;
+  height: 18px;
+  margin-right: 0.5rem;
+  fill: currentColor;
+}
+.active-pill {
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  width: calc(50% - 6px);
+  left: 6px;
+  background-color: #F4C430;
+  border-radius: 9999px;
+  z-index: 5;
+}
+.toggle-btn.active {
+  color: #596ED9;
+  opacity: 1;
+}
+.toggle-btn:not(.active):hover {
+  color: #fff;
+  opacity: 1;
+}
+
+/* --- 6. GRADIENT BORDER FORM --- */
+.form-wrapper {
+  animation: fadeIn 0.5s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.form-gradient-border {
+  padding: 3px;
+  border-radius: 12px;
+  transition: background 0.5s ease-out; 
+}
+.form-gradient-border.email-active {
+  background: linear-gradient(90deg, #F4C430, #ffffff, #F4C430);
+}
+.form-gradient-border.whatsapp-active {
+  background: linear-gradient(90deg, #F4C430, #25D366, #F4C430);
+}
 .lets-talk-form {
-  margin-top: 4rem;
+  background: #596ED9;
+  border-radius: 9px;
+  padding: 2.5rem;
 }
 
-.form-section {
-  margin-bottom: 4rem;
-}
-
+/* --- 7. FORM INPUT STYLES --- */
+.form-section { margin-bottom: 2.5rem; }
 .form-section h2 {
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   margin-bottom: 2rem;
+  color: #F4C430;
 }
-
 .form-row {
   display: flex;
   gap: 2rem;
   margin-bottom: 2rem;
 }
-
+.form-row:last-child { margin-bottom: 0; }
 .form-group {
   flex: 1;
   position: relative;
 }
-
-.form-group input {
+.form-group input,
+.form-group textarea {
   width: 100%;
   background: transparent;
   border: none;
-  border-bottom: 1px solid #ccd0daff;
+  border-bottom: 2px solid #F4C430;
   padding: 0.5rem 0;
   font-size: 1.1rem;
-  color: #1a202c;
+  color: #F4C430;
   outline: none;
+  font-family: inherit;
+  resize: vertical;
 }
-
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #F4C430;
+  opacity: 0.7;
+}
 .form-group label {
   position: absolute;
   top: 0.5rem;
   left: 0;
   font-size: 0.8rem;
-  color: #cfcabbff;
+  color: #F4C430;
+  opacity: 0.8;
   text-transform: uppercase;
   pointer-events: none;
   transition: all 0.2s ease;
 }
-
 .form-group input:focus + label,
-.form-group input:valid + label {
+.form-group input:valid + label,
+.form-group textarea:focus + label,
+.form-group textarea:valid + label {
   top: -1rem;
   font-size: 0.7rem;
 }
-
-@media (max-width: 768px) {
-  .lets-talk-header h1 {
-    font-size: 4rem;
-  }
-  .form-row {
-    flex-direction: column;
-    gap: 2.5rem;
-  }
-}
-/* ... all your existing CSS for the modal ... */
-
-/* ADD THESE STYLES FOR THE SUBMIT BUTTON */
 .form-submit-row {
-  margin-top: 3rem; /* Gives space after the last form field */
+  margin-top: 2rem;
   display: flex;
   justify-content: flex-start;
 }
-
 .btn-submit {
-  background-color: #1a202c; /* Dark background */
-  color: #f0ebe5; /* Light text */
+  background-color: #F4C430;
+  color: #596ED9;
   padding: 1rem 3rem;
   border: none;
   font-size: 1.1rem;
-  font-weight: 500;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
 .btn-submit:hover {
-  background-color: #4a5568; /* A lighter gray on hover */
+  background-color: #fff;
+  color: #596ED9;
+}
+.btn-submit:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
 }
 
-/* --- STYLES FOR NEW TOGGLE BUTTONS --- */
-.contact-method-toggle {
-  display: flex;
-  background-color: #e2e8f0; /* Light gray background */
+/* --- 8. SIDEBAR STYLES --- */
+.social-links {
+  background-color: #4a5bb9;
+  border: 1px solid #F4C430;
+  border-radius: 12px;
+  padding: 2rem;
+}
+.social-links h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #F4C430;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.social-links p {
+  color: #F4C430;
+  opacity: 0.8;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+.social-link-item {
+  display: block;
+  background-color: #596ED9;
+  color: #F4C430;
+  padding: 0.75rem 1.25rem;
   border-radius: 8px;
-  padding: 4px;
-  margin-bottom: 2rem;
-  border: 1px solid #cbd5e0;
-}
-
-.toggle-btn {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: none;
-  padding: 0.75rem 1rem;
-  border-radius: 6px;
-  font-size: 1rem;
+  margin-bottom: 1rem;
+  text-decoration: none;
   font-weight: 500;
-  color: #4a5568; /* Gray text for inactive */
-  cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
+.social-link-item:hover {
+  background-color: #F4C430;
+  color: #596ED9;
+}
+.social-link-item:last-child { margin-bottom: 0; }
 
-.toggle-btn svg {
+/* --- 9. ERROR & SUCCESS MESSAGES --- */
+.form-error-google {
+  color: #F4C430; 
+  background-color: #c53030;
+  border: 1px solid #F4C430;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  margin-top: -1rem;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+.success-message {
+  text-align: center;
+  padding-top: 4rem;
+}
+.success-message p {
+  max-width: 100%;
+  margin-bottom: 2rem;
+}
+.success-message .btn-submit { margin: 0 auto; }
+
+/* --- 10. MOVING DOODLES --- */
+.doodle {
+  position: absolute;
+  background-color: #F4C430; /* Gold */
+  opacity: 0.1;
+  z-index: 2001; /* Below close button, above background */
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+.doodle-1 {
   width: 20px;
   height: 20px;
-  margin-right: 0.5rem;
-  fill: currentColor;
+  border-radius: 50%;
+  top: 10%;
+  left: 10%;
+  animation-name: float-1;
+}
+.doodle-2 {
+  width: 40px;
+  height: 40px;
+  top: 30%;
+  left: 80%;
+  animation-name: float-2;
+  animation-duration: 25s;
+}
+.doodle-3 {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  top: 70%;
+  left: 5%;
+  animation-name: float-3;
+  animation-duration: 18s;
+}
+.doodle-4 {
+  width: 30px;
+  height: 30px;
+  top: 80%;
+  left: 90%;
+  animation-name: float-4;
+  animation-duration: 22s;
+}
+.doodle-5 {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  top: 5%;
+  left: 50%;
+  animation-name: float-5;
+  animation-duration: 30s;
 }
 
-.toggle-btn.active {
-  background-color: #1a202c; /* Dark background for active */
-  color: #f0ebe5; /* Light text for active */
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+@keyframes float-1 {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(100px, 200px) rotate(180deg); }
+  100% { transform: translate(0, 0) rotate(360deg); }
+}
+@keyframes float-2 {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(-150px, -300px) rotate(180deg); }
+  100% { transform: translate(0, 0) rotate(360deg); }
+}
+@keyframes float-3 {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(200px, -150px) rotate(180deg); }
+  100% { transform: translate(0, 0) rotate(360deg); }
+}
+@keyframes float-4 {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(-300px, 50px) rotate(180deg); }
+  100% { transform: translate(0, 0) rotate(360deg); }
+}
+@keyframes float-5 {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(0px, 400px) rotate(180deg); }
+  100% { transform: translate(0, 0) rotate(360deg); }
 }
 
-.toggle-btn:not(.active):hover {
-  background-color: #f7fafc; /* Slight hover for inactive */
-}
+/* --- 11. RESPONSIVE STYLES --- */
+@media (max-width: 768px) {
+  .lets-talk-island {
+    height: 95vh; /* Taller on mobile */
+    max-height: none;
+    padding: 1rem;
+  }
+  .lets-talk-content {
+    padding: 1.5rem;
+  }
+  .lets-talk-header h1 {
+    font-size: 3rem;
+  }
+  .form-row {
+    flex-direction: column;
+    gap: 2.5rem;
+    margin-bottom: 0;
+  }
+  .form-group {
+    margin-bottom: 2.5rem;
+  }
+  .form-group:last-child {
+    margin-bottom: 0;
+  }
+  .lets-talk-form {
+    padding: 1.5rem;
+  }
 
-/* Wrapper to help with animations */
-.form-wrapper {
-  animation: fadeIn 0.5s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* --- WHATSAPP BUTTON COLOR --- */
-.btn-whatsapp {
-  background-color: #25D366; /* WhatsApp Green */
-  color: #fff;
-}
-
-.btn-whatsapp:hover {
-  background-color: #1DAE54;
+  /* Stack columns on mobile */
+  .modal-body-layout {
+    flex-direction: column;
+  }
+  .modal-sidebar {
+    padding-top: 0; /* Reset alignment */
+  }
 }

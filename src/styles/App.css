@@ -1,4 +1,6 @@
-/* Custom Color Variables */
+/* =========================================
+   1. VARIABLES & BASE STYLES
+   ========================================= */
 :root {
   --primary-color: #596ED9;
   --secondary-color: #FFFFFF;
@@ -6,9 +8,9 @@
   --text-dark: #1a202c;
   --text-light: #4a5568;
   --text-gray: #718096;
+  --yarl__color_backdrop: rgba(89, 110, 217, 0.9); /* Lightbox Theme */
 }
 
-/* Reset and Base Styles */
 * {
   margin: 0;
   padding: 0;
@@ -28,29 +30,34 @@ body {
   padding: 0 20px;
 }
 
-/* --- Header & Navigation Styles --- */
+/* =========================================
+   2. HEADER & NAVIGATION
+   ========================================= */
 .header {
   position: fixed;
-  top: 1rem; /* Adds space from the top */
-  left: 50%; /* Helps with centering */
-  overflow: hidden;
-  width: 95%; /* Makes it narrower than the screen */
-  max-width: 1200px; /* Sets a maximum width */
-  background: rgba(255, 255, 255, 0.96); /* Slightly more transparent */
+  top: 1rem;
+  /* Centering method that allows mobile menu to work */
+  left: 50%;
+  transform: translateX(-50%);
+  
+  width: 95%;
+  max-width: 1200px;
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(12px);
   z-index: 1000;
-  border-radius: 12px; /* Rounds the corners */
-  border: 1px solid rgba(0, 0, 0, 0.05); /* Adds a subtle border */
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Creates the floating effect */
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .header .container {
+  position: relative; 
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  gap: 300px;
-  padding: 1rem 20px;
+  justify-content: flex-start; 
+  padding: 1rem 2rem; 
   height: 80px;
+  width: 100%;
 }
 
 .navbar-logo {
@@ -59,12 +66,43 @@ body {
   display: block;
 }
 
-.nav {
-  display: flex;
-  gap: 3rem;
-  align-items: center;
+/* --- MOBILE TOGGLE (HAMBURGER) STYLES --- */
+.mobile-toggle {
+  display: none; /* Hidden on desktop */
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1002;
 }
 
+.mobile-toggle span {
+  width: 100%;
+  height: 3px;
+  background-color: var(--text-dark);
+  border-radius: 10px;
+  transition: all 0.3s linear;
+}
+
+/* --- DESKTOP NAV (ABSOLUTE POSITIONING) --- */
+@media (min-width: 769px) {
+  .nav {
+    position: absolute; /* Pins it to the container */
+    right: 2rem;        /* Sticks to the right edge */
+    top: 50%;           /* Centers vertically */
+    transform: translateY(-50%); 
+    
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+}
+
+/* -- Nav Links (Home) -- */
 .nav a {
   text-decoration: none;
   color: var(--text-light);
@@ -90,6 +128,61 @@ body {
   background: var(--primary-color);
   border-radius: 2px;
 }
+
+/* -- Contact Button (Styled Blue & Underlined) -- */
+.nav-contact-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  
+  font-size: 0.95rem;
+  font-weight: 500;
+  /* Updated to Blue & Underlined as requested */
+  color: #596ED9; 
+  /* text-decoration: underline; */
+  position: relative; 
+  text-underline-offset: 4px;
+  transition: all 0.3s ease;
+}
+
+.nav-contact-btn:hover {
+  opacity: 0.7;
+}
+.nav-contact-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -5px; /* Same distance as Home button */
+  left: 0;
+  width: 100%;
+  height: 3px; /* Thickness of the bar */
+  background: var(--primary-color); /* Blue color */
+  border-radius: 2px;
+}
+/* -- Download Button -- */
+.btn-nav-download {
+  background-color: var(--primary-color);
+  color: white !important;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  margin-left: 1rem;
+  white-space: nowrap;
+}
+
+.btn-nav-download:hover {
+  background-color: var(--text-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
 .progress-bar {
   position: absolute;
   bottom: 0;
@@ -99,7 +192,10 @@ body {
   background: var(--primary-color);
   transform-origin: 0%; 
 }
-/* --- General Button Styles --- */
+
+/* =========================================
+   3. GENERAL BUTTON STYLES
+   ========================================= */
 .btn {
   display: inline-block;
   padding: 16px 32px;
@@ -136,33 +232,22 @@ body {
   color: var(--primary-color);
 }
 
-.btn-nav-download {
-  background-color: var(--primary-color);
-  color: white !important;
-  padding: 8px 16px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  margin-left: 1rem;
-  white-space: nowrap;
+.portfolio-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  text-align: left;
+  display: block; 
 }
 
-.btn-nav-download:hover {
-  background-color: var(--text-dark);
-  color: white !important;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-/* Style for the Typewriter cursor */
-.Typewriter__cursor {
-  color: var(--third-color); /* Uses your primary yellow color variable */
-}
-/* --- Page & Section Styles --- */
+/* =========================================
+   4. HERO SECTION
+   ========================================= */
 .page {
   min-height: 100vh;
-  padding-top: 0px; /* Space for fixed header */
+  padding-top: 0px; 
 }
 
 .hero {
@@ -210,6 +295,10 @@ body {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+.Typewriter__cursor {
+  color: var(--third-color);
+}
+
 .hero-content p {
   font-size: 1.25rem;
   opacity: 0.95;
@@ -226,6 +315,9 @@ body {
   flex-wrap: wrap;
 }
 
+/* =========================================
+   5. STATS SECTION
+   ========================================= */
 .stats-section {
   padding: 100px 0;
   background: var(--secondary-color);
@@ -264,6 +356,9 @@ body {
   font-weight: 500;
 }
 
+/* =========================================
+   6. SERVICES SECTION
+   ========================================= */
 .services-section {
   padding: 100px 0;
   background: var(--third-color);
@@ -277,14 +372,12 @@ body {
   margin-bottom: 4rem;
 }
 
-
- .services-grid {
+.services-grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* This centers the cards */
+  justify-content: center;
   gap: 2rem;
 }
-
 
 .service-card {
   background: var(--secondary-color);
@@ -329,6 +422,9 @@ body {
   line-height: 1.7;
 }
 
+/* =========================================
+   7. PORTFOLIO SECTION
+   ========================================= */
 .portfolio-section {
   padding: 100px 0;
   background: var(--primary-color);
@@ -349,6 +445,10 @@ body {
   gap: 2rem;
 }
 
+.new-portfolio-grid a {
+  text-decoration: none;
+}
+
 .portfolio-card-large {
   grid-column: 1 / -1;
 }
@@ -360,10 +460,6 @@ body {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
   height: 100%;
-}
-
-.new-portfolio-grid a {
-  text-decoration: none;
 }
 
 .portfolio-card:hover {
@@ -394,6 +490,9 @@ body {
   font-size: 0.95rem;
 }
 
+/* =========================================
+   8. TESTIMONIALS (VIDEO - LOCAL FILE FIX)
+   ========================================= */
 .testimonials-section {
   padding: 100px 0;
   background: var(--secondary-color);
@@ -417,15 +516,16 @@ body {
   justify-content: center;
   align-items: center;
   transition: transform 0.4s ease, opacity 0.4s ease;
+  transform: scale(1); 
+  opacity: 1;         
+}
+
+.swiper-slide:not(.swiper-slide-active) {
   opacity: 0.4;
   transform: scale(0.85);
 }
 
-.swiper-slide-active {
-  opacity: 1;
-  transform: scale(1);
-}
-
+/* --- PORTRAIT VIDEO FIXES --- */
 .video-card {
   background: var(--secondary-color);
   color: var(--text-dark);
@@ -433,17 +533,20 @@ body {
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   border: 1px solid #e2e8f0;
-  width: 75%;
-  /* max-width: 600px; */
+  
+  /* Constrain width for portrait videos on desktop */
+  width: 100%;
+  max-width: 320px; 
   margin: 0 auto;
 }
 
+/* This wrapper maintains the aspect ratio for the video */
 .video-wrapper {
   position: relative;
-  padding-top: 177.77%;
+  /* 9:16 Aspect Ratio for Shorts (approx 177.77%) */
+  padding-top: 177.77%; 
   background-color: #000;
-  border-radius: 16px;
-  overflow: hidden;
+  width: 100%;
 }
 
 .video-wrapper video {
@@ -452,9 +555,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  /* border-top-left-radius: 16px;
-  border-top-right-radius: 16px; */
-  object-fill: cover;
+  object-fit: cover; /* Ensures video fills the wrapper */
 }
 
 .video-author-info {
@@ -505,7 +606,9 @@ body {
   font-weight: 800;
 }
 
-/* --- Footer Styles --- */
+/* =========================================
+   9. FOOTER SECTION
+   ========================================= */
 .new-footer {
   background: var(--text-dark);
   color: var(--secondary-color);
@@ -550,7 +653,6 @@ body {
 .footer-logo {
   width: 180px;
   height: 170px;
-  /* background-color: var(--primary-color); */
   border-radius: 12px;
   padding: 5px;
   transition: transform 0.3s ease;
@@ -681,43 +783,67 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* --- Mobile & Tablet Responsive Styles --- */
+/* =========================================
+   10. MOBILE & TABLET RESPONSIVE STYLES
+   ========================================= */
 @media (max-width: 768px) {
   .mobile-toggle {
     display: flex;
-    z-index: 1001;
+    z-index: 1002; /* Ensure it is above content */
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
+  /* Mobile: Full Screen Slide-out Menu */
   .nav {
     display: flex;
     flex-direction: column;
-    position: absolute;
+    position: fixed; 
     top: 0;
     left: 0;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
-    padding-top: 6rem;
-    background: rgba(255, 255, 255, 0.98);
+    
+    padding-top: 8rem; 
+    padding-left: 2rem;
+    padding-right: 2rem;
+    
+    /* Opacity: 95% Visible (0.95) */
+    background: rgba(255, 255, 255, 0.8); 
     backdrop-filter: blur(10px);
-    transform: translateX(-100%);
+    
+    transform: translateX(100%); 
     transition: transform 0.3s ease-in-out;
+    
+    align-items: flex-start; 
+    gap: 2rem;
+    z-index: 1001; 
   }
 
   .nav-open {
-    transform: translateX(0);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    transform: translateX(0); 
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
   }
 
-  .nav a {
+  .nav a,
+  .nav-contact-btn {
     font-size: 1.5rem;
-    padding: 1rem 2rem;
+    padding: 0;
+    display: block;
+    width: 100%;
+    color: var(--text-dark);
   }
   
   .btn-nav-download {
-    margin-left: 2rem;
+    margin-left: 0;
     margin-top: 1rem;
     display: inline-block;
     text-align: center;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
   }
 
   .hero-content h1 {

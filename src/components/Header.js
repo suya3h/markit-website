@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, useScroll, useSpring } from 'framer-motion'; 
-
 import logo from '../assets/logo.png'; 
 
+// 1. Make sure it accepts the 'onLetsTalkOpen' prop
 const Header = ({ onLetsTalkOpen }) => { 
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -24,15 +24,15 @@ const Header = ({ onLetsTalkOpen }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Restored your navigation links
+  // --- THESE ROUTES ARE NOW COMMENTED OUT ---
   const navLinks = [
     { path: '/', label: 'Home' },
-    { path: '/about', label: 'About Us' },
-    { path: '/services', label: 'Services' },
-    { path: '/projects', label: 'Projects' },
+    // { path: '/about', label: 'About Us' },
+    // { path: '/services', label: 'Services' },
+    // { path: '/projects', label: 'Projects' },
   ];
 
-  // Function to handle opening the modal
+  // 2. This function handles the click
   const handleContactClick = (e) => {
     e.preventDefault();
     onLetsTalkOpen();
@@ -50,7 +50,7 @@ const Header = ({ onLetsTalkOpen }) => {
         <Link to="/" className="logo">
           <motion.img 
             src={logo} 
-            alt="Mark-It Logo"
+            alt="Mark-it Logo"
             className="navbar-logo"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
@@ -75,18 +75,18 @@ const Header = ({ onLetsTalkOpen }) => {
             </motion.div>
           ))}
 
-          {/* ADDED: Contact button to open the modal */}
+          {/* 3. This is the "Contact" button */}
+          {/* We'll change this <a> tag to a <button> to fix the warning */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: navLinks.length * 0.1 }}
           >
-            <a href="#" onClick={handleContactClick}>
+            <button type="button" className="nav-contact-btn" onClick={handleContactClick}>
               Contact
-            </a>
+            </button>
           </motion.div>
 
-          {/* Kept your existing download button */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
