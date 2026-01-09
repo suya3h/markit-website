@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // We no longer need Formspree
@@ -36,10 +36,8 @@ const LetsTalk = ({ isOpen, onClose }) => {
   // NEW Submit logic for Google Sheets
   const handleEmailSubmit = (e) => {
     e.preventDefault();
-    console.log("Attempting to send data to URL:", SCRIPT_URL);
     setIsSubmitting(true);
     setSubmitError(null);
-    
 
     // Use FormData to send data
     const data = new FormData();
@@ -102,7 +100,7 @@ const LetsTalk = ({ isOpen, onClose }) => {
     exit: { y: 100, opacity: 0, scale: 0.9, transition: { duration: 0.3 } },
   };
 
-  // --- 5. Component JSX (NEW STRUCTURE) ---
+  // --- 5. Component JSX ---
   return (
     <AnimatePresence>
       {isOpen && (
@@ -164,14 +162,16 @@ const LetsTalk = ({ isOpen, onClose }) => {
                       <button 
                         className={`toggle-btn ${contactMethod === 'email' ? 'active' : ''}`}
                         onClick={() => setContactMethod('email')}
+                        aria-label="Email Contact"
                       >
-                        <MailIcon /> Submit
+                        <MailIcon /> 
                       </button>
                       <button 
                         className={`toggle-btn ${contactMethod === 'whatsapp' ? 'active' : ''}`}
                         onClick={() => setContactMethod('whatsapp')}
+                        aria-label="WhatsApp Contact"
                       >
-                        <WhatsAppIcon /> WhatsApp
+                        <WhatsAppIcon /> 
                       </button>
                     </div>
 
@@ -258,15 +258,36 @@ const LetsTalk = ({ isOpen, onClose }) => {
                     <div className="social-links">
                       <h3>Follow Us</h3>
                       <p>Find us on our social channels to see our latest work.</p>
-                      <a href="https://www.linkedin.com/company/mark-it-24/" target="_blank" rel="noopener noreferrer" className="social-link-item">
+                      
+                      {/* --- PUT YOUR LINKS HERE --- */}
+                      <a 
+                        href="https://www.linkedin.com/company/mark-it" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="social-link-item"
+                      >
                         LinkedIn
                       </a>
-                      <a href="https://www.instagram.com/markit.co.in/" target="_blank" rel="noopener noreferrer" className="social-link-item">
+                      
+                      <a 
+                        href="https://www.instagram.com/mark.it" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="social-link-item"
+                      >
                         Instagram
                       </a>
-                      <a href="https://www.behance.net/mark-it" target="_blank" rel="noopener noreferrer" className="social-link-item">
-                        Behance 
+                      
+                      <a 
+                        href="https://dribbble.com/mark-it" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="social-link-item"
+                      >
+                        Dribbble
                       </a>
+                      {/* --------------------------- */}
+                      
                     </div>
                   </div>
                 </div>

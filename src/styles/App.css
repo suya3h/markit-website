@@ -613,7 +613,7 @@ body {
   background: var(--text-dark);
   color: var(--secondary-color);
   padding: 3rem 0;
-  margin-top: 8rem;
+  
   position: relative;
 }
 
@@ -873,4 +873,225 @@ body {
   .footer-separator {
     display: none;
   }
+}
+/* =========================================
+   11. SERVICES PAGE STYLES
+   =========================================  */
+
+.services-page {
+  /* padding-top: 80px;  */
+  /* Use a light background so the white hover effect pops */
+  background-color: #f4f6f8; 
+}
+
+.services-hero {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 100px 0 80px;
+  text-align: center;
+}
+
+.services-hero h1 {
+  font-size: 4rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+}
+
+.services-hero .highlight {
+  color: var(--third-color);
+}
+
+.services-hero p {
+  font-size: 1.25rem;
+  max-width: 700px;
+  margin: 0 auto;
+  opacity: 0.9;
+}
+
+/* Detailed List Layout */
+.services-list-section {
+  padding: 80px 0;
+}
+
+.services-detailed-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* Zero gap to create the continuous list look */
+}
+
+.service-detailed-card {
+  /* --- DEFAULT STATE (The List Look) --- */
+  background-color: transparent; /* No background initially */
+  border-bottom: 1px solid var(--third-color); /* The separator line */
+  border-radius: 12px; /* Slight radius for when it hovers */
+  
+  padding: 3rem 2rem; /* Spacing */
+  margin: 0; /* Touch edges */
+  
+  /* Layout */
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  align-items: start;
+  
+  /* Smooth Transitions */
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* --- HOVER STATE (The Raised Effect) --- */
+.service-detailed-card:hover {
+  background-color: var(--secondary-color); /* White background appears */
+  transform: scale(1.02); /* Slight scale up */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  border-bottom-color: transparent; /* Hide the line below */
+  z-index: 10; /* Bring to front */
+}
+
+/* Header Area (Icon + Title) */
+.service-card-header {
+  grid-column: 1;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.service-icon-large {
+  width: 60px;
+  height: 60px;
+  background-color: transparent;
+  border-radius: 12px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex-shrink: 0;
+ 
+
+}
+ @media (min-width: 769px) and (max-width: 1280px) {
+.service-detailed-card h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  line-height: 1.2;
+}}
+
+/* --- THE DROPDOWN CONTENT WRAPPER --- */
+.service-content-hidden {
+  grid-column: 2;
+  
+  /* HIDDEN STATE */
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(10px);
+  
+  /* TRANSITION SETTINGS */
+  transition: max-height 0.5s ease, opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s;
+}
+
+/* REVEAL STATE ON HOVER */
+.service-detailed-card:hover .service-content-hidden {
+  max-height: 500px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Inner Content Styling */
+.service-content-hidden p {
+  color: var(--text-light);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.service-tags {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.service-tags li {
+  background-color: #fff; 
+  color: var(--primary-color);
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid var(--primary-color); /* Blue border for tags */
+}
+
+.btn-text-link {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.btn-text-link:hover {
+  transform: translateX(5px);
+  color: var(--text-dark);
+}
+
+/* CTA Box */
+.services-cta {
+  padding: 80px 0 120px;
+}
+
+.cta-box {
+  background-color: var(--text-dark);
+  color: white;
+  border-radius: 24px;
+  padding: 4rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-box h2 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--third-color);
+}
+
+.cta-box p {
+  font-size: 1.2rem;
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
+}
+
+/* Mobile Tweaks */
+@media (max-width: 768px) {
+  .services-hero h1 { font-size: 2.5rem; }
+  
+  .service-detailed-card {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1rem;
+    gap: 1rem;
+  }
+  
+  /* On mobile, we can keep the content visible or use a tap interaction. 
+     Keeping it visible is usually better for UX on touch screens. */
+  .service-content-hidden {
+    grid-column: auto;
+    max-height: none;
+    opacity: 1;
+    transform: none;
+    overflow: visible;
+  }
+  
+  .service-card-header {
+    width: 100%;
+  }
+
+  .cta-box h2 { font-size: 2rem; }
 }
