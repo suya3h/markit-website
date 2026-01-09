@@ -261,7 +261,7 @@ const LetsTalk = ({ isOpen, onClose }) => {
                       
                       {/* --- PUT YOUR LINKS HERE --- */}
                       <a 
-                        href="https://www.linkedin.com/company/mark-it" 
+                        href="https://www.linkedin.com/company/mark-it-official/" 
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="social-link-item"
@@ -270,7 +270,7 @@ const LetsTalk = ({ isOpen, onClose }) => {
                       </a>
                       
                       <a 
-                        href="https://www.instagram.com/mark.it" 
+                        href="https://www.instagram.com/markit.co.in/" 
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="social-link-item"
@@ -279,12 +279,12 @@ const LetsTalk = ({ isOpen, onClose }) => {
                       </a>
                       
                       <a 
-                        href="https://dribbble.com/mark-it" 
+                        href="https://www.behance.net/mark-it" 
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="social-link-item"
                       >
-                        Dribbble
+                        Behance
                       </a>
                       {/* --------------------------- */}
                       

@@ -46,7 +46,7 @@
   max-width: 1100px;
   height: 90vh; /* 90% of screen height */
   max-height: 800px; /* Max height */
-  background-color: #5f73da; /* Your blue */
+  background-color: #7b86c91f; /* Your blue */
   border-radius: 20px;
   border: 1px solid #F4C430; /* Gold border */
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
@@ -211,7 +211,7 @@
   border-bottom: 2px solid #F4C430;
   padding: 0.5rem 0;
   font-size: 1.1rem;
-  color: #F4C430;
+  color: #000000;
   outline: none;
   font-family: inherit;
   resize: vertical;
@@ -267,7 +267,7 @@
 
 /* --- 8. SIDEBAR STYLES --- */
 .social-links {
-  background-color: #4a5bb9;
+  background-color: #232758;
   border: 1px solid #F4C430;
   border-radius: 12px;
   padding: 2rem;
