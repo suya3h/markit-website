@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import logo from '../assets/Footer-logo.png';
+import logo from '../assets/Footer-logo.webp';
 
 const Footer = () => {
     // --- UPDATED: Links now include an internal anchor ---

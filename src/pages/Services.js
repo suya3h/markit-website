@@ -2,12 +2,12 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 // Import your actual assets (same as Home page)
-import icon1 from '../assets/brand-bg.png';
-import icon2 from '../assets/Digital-bg.png';
-import icon3 from '../assets/web-bg.png';
-import icon4 from '../assets/content-bg.png';
-import icon5 from '../assets/email-bg.png';
-import icon6 from '../assets/omni-bg.png';
+import icon1 from '../assets/brand-bg.webp';
+import icon2 from '../assets/Digital-bg.webp';
+import icon3 from '../assets/web-bg.webp';
+import icon4 from '../assets/content-bg.webp';
+import icon5 from '../assets/email-bg.webp';
+import icon6 from '../assets/omni-bg.webp';
 
 const servicesList = [
   {

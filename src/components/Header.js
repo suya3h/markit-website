@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import logo from '../assets/logo.png'; 
+import logo from '../assets/logo.webp'; 
 
 const Header = ({ onLetsTalkOpen }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -17,6 +17,7 @@ const Header = ({ onLetsTalkOpen }) => {
 
   const navLinks = [
     { path: '/', label: 'Home' },
+    { path: '/projects', label: 'Projects' },
     { path: '/services', label: 'Services' },
   ];
 

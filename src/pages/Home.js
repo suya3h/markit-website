@@ -6,19 +6,44 @@ import { Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import Typewriter from 'typewriter-effect';
+import TrustedMarquee from '../components/TrustedMarquee';
 
 // Import your assets
-import projectImage1 from '../assets/Metatech.png';
-import projectImage2 from '../assets/Content-creation.png'; 
-import projectImage3 from '../assets/Offline-Marketing.png';
-import icon1 from '../assets/Brand-Design.png';
-import icon2 from '../assets/Digital-marketing.png';
-import icon3 from '../assets/Website-Development.png';
-import icon4 from '../assets/Content-Creationlogo.png';
-import icon5 from '../assets/Email-marketing.png';
-import icon6 from '../assets/Omni-Presence-Marketing.png';
-import Avatar1 from '../assets/dr.rujuta.png';
-import Avatar2 from'../assets/Metatechlogo.png';
+import projectImage1 from '../assets/Metatech.webp';
+import projectImage2 from '../assets/Content-creation.webp'; 
+import projectImage3 from '../assets/Offline-Marketing.webp';
+import icon1 from '../assets/Brand-Design.webp';
+import icon2 from '../assets/Digital-marketing.webp';
+import icon3 from '../assets/Website-Development.webp';
+import icon4 from '../assets/Content-Creationlogo.webp';
+import icon5 from '../assets/Email-marketing.webp';
+import icon6 from '../assets/Omni-Presence-Marketing.webp';
+import Avatar1 from '../assets/dr.rujuta.webp';
+import Avatar2 from '../assets/Metatechlogo.webp';
+
+// ── Trusted-company logos for the marquee ──────────────────────────────────
+import trustedLogo1 from '../assets/cafedhruva.webp';
+import trustedLogo2 from '../assets/hoteldhruva.webp';
+import trustedLogo3 from '../assets/chaukachoolha.webp';
+import trustedLogo4 from '../assets/kidparadise.webp';
+import trustedLogo5 from '../assets/keeayoacademy.webp';
+import trustedLogo6 from '../assets/Metatechlogo.webp';
+import trustedLogo7 from '../assets/skinstudio.webp';
+import trustedLogo8 from '../assets/rujutha.webp';
+import trustedLogo9 from '../assets/vandanacreation.webp';
+
+// ── Logos data – pass as props so TrustedMarquee stays fully reusable ───────
+const TRUSTED_LOGOS = [
+    { src: trustedLogo1, alt: 'Cafe Dhruva' },
+    { src: trustedLogo2, alt: 'Hotel Dhruva' },
+    { src: trustedLogo3, alt: 'Chauka Choolha' },
+    { src: trustedLogo4, alt: 'Kid Paradise' },
+    { src: trustedLogo5, alt: 'Keeayo Academy' },
+    { src: trustedLogo6, alt: 'Metatech Techno Craft LLP' },
+    { src: trustedLogo7, alt: 'The Skin Studio' },
+    { src: trustedLogo8, alt: 'Rujutha Healthcare' },
+    { src: trustedLogo9, alt: 'Vandana Creations' },
+];
 
 const Home = ({ onLetsTalkOpen }) => {
     
@@ -90,6 +115,12 @@ const Home = ({ onLetsTalkOpen }) => {
                 </div>
             </section>
 
+            {/* --- Trusted Companies Marquee --- */}
+            <TrustedMarquee
+                logos={TRUSTED_LOGOS}
+                speed={28}
+            />
+
             {/* --- Services Section --- */}
             <section className="services-section" id ="services-section">
                 <div className="container">
@@ -136,7 +167,7 @@ const Home = ({ onLetsTalkOpen }) => {
                     <div className="new-portfolio-grid">
                         <button type="button" onClick={onLetsTalkOpen} className="portfolio-card-large portfolio-button">
                             <motion.div className="portfolio-card" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-                                <div className="portfolio-image" style={{ backgroundImage: `url(${projectImage1})` }}></div>
+                                <div className="portfolio-image" style={{ backgroundImage: `url(${projectImage1})` }} loading="lazy"></div>
                                 <div className="portfolio-content">
                                     <h3>Metatech Technocraft LLP</h3>
                                 </div>
@@ -144,7 +175,7 @@ const Home = ({ onLetsTalkOpen }) => {
                         </button>
                         <button type="button" onClick={onLetsTalkOpen} className="portfolio-card-small portfolio-button">
                             <motion.div className="portfolio-card" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
-                                <div className="portfolio-image" style={{ backgroundImage: `url(${projectImage2})` }}></div>
+                                <div className="portfolio-image" style={{ backgroundImage: `url(${projectImage2})` }} loading="lazy"></div>
                                 <div className="portfolio-content">
                                     <h3>Content Creation For Social Media</h3>
                                 </div>
@@ -152,7 +183,7 @@ const Home = ({ onLetsTalkOpen }) => {
                         </button>
                         <button type="button" onClick={onLetsTalkOpen} className="portfolio-card-small portfolio-button">
                             <motion.div className="portfolio-card" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
-                                <div className="portfolio-image" style={{ backgroundImage: `url(${projectImage3})` }}></div>
+                                <div className="portfolio-image" style={{ backgroundImage: `url(${projectImage3})` }} loading="lazy"></div>
                                 <div className="portfolio-content">
                                     <h3>Offline Advertisement Design</h3>
                                 </div>
@@ -194,7 +225,7 @@ const Home = ({ onLetsTalkOpen }) => {
                                             </video>
                                         </div>
                                         <div className="video-author-info">
-                                            <img src={testimonial.avatar} alt={testimonial.author} className="author-avatar" />
+                                            <img src={testimonial.avatar} alt={testimonial.author} className="author-avatar" loading="lazy" decoding="async" />
                                             <div className="author-details">
                                                 <div className="video-author">{testimonial.author}</div>
                                                 {/* Removed role if not in data object to avoid empty div */}

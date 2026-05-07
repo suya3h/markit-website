@@ -1,0 +1,245 @@
+/* ============================================================
+   TrustedMarquee.css
+   Styles for the "Trusted by Leading Companies" infinite
+   marquee section. Follows the Mark-It Blue & Gold theme.
+   ============================================================ */
+
+/* ── Section wrapper ── */
+.trusted-marquee-section {
+    background-color: #596ED9;
+    /* --primary-color */
+    padding: 64px 0 56px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ── Header block ── */
+.trusted-marquee-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 0 24px;
+}
+
+.trusted-marquee-eyebrow {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #F4C430;
+    /* --third-color (gold) */
+    margin-bottom: 10px;
+}
+
+.trusted-marquee-title {
+    font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+    font-weight: 700;
+    color: #fff;
+    margin: 0 auto 16px;
+    line-height: 1.2;
+}
+
+/* Gold underline accent beneath the title */
+.trusted-marquee-accent {
+    width: 56px;
+    height: 4px;
+    border-radius: 2px;
+    background: #F4C430;
+    /* --third-color */
+    margin: 0 auto;
+}
+
+/* ── Marquee viewport (clips the scrolling track) ── */
+.marquee-viewport {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+
+    /*
+     * GRADIENT FADE EDGES
+     * ───────────────────
+     * ::before and ::after overlay semi-transparent linear gradients on the
+     * left and right edges so cards fade in/out smoothly, giving a premium
+     * "infinite tunnel" feel without any JavaScript.
+     */
+}
+
+/* Left fade */
+.marquee-viewport::before,
+.marquee-viewport::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 140px;
+    z-index: 2;
+    pointer-events: none;
+    /* clicks pass through to cards */
+}
+
+.marquee-viewport::before {
+    left: 0;
+    background: linear-gradient(to right, #596ED9 0%, transparent 100%);
+}
+
+/* Right fade */
+.marquee-viewport::after {
+    right: 0;
+    background: linear-gradient(to left, #596ED9 0%, transparent 100%);
+}
+
+/* ── Scrolling track ── */
+/*
+ * HOW INFINITE SCROLL WORKS (CSS side)
+ * ──────────────────────────────────────
+ * The track contains the logo list duplicated once (2× logos).
+ * `marquee-scroll` translates the track by -50% so it scrolls exactly
+ * through the first copy. At -50%, the position is identical to the start,
+ * so the browser's `infinite` loop produces a seamless restart with zero jump.
+ *
+ * `will-change: transform` hints to the GPU to promote the element to its
+ * own compositing layer, enabling jank-free 60 fps scrolling.
+ */
+.marquee-track {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: max-content;
+    /* shrink-wraps all cards */
+    padding: 12px 10px;
+
+    animation-name: marquee-scroll;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    /* animationDuration and animationPlayState come from inline styles in JS */
+
+    will-change: transform;
+}
+
+/* Keyframe: translate exactly -50% (one full set of logos) */
+@keyframes marquee-scroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* ── Individual logo card ── */
+.marquee-card {
+    flex: none;
+    /* don't shrink inside the flex track */
+    width: 210px;
+    height: 140px;
+    cursor: pointer;
+}
+
+.marquee-card-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ffffff;
+    border: 2px solid rgba(244, 196, 48, 0.45);
+    border-radius: 14px;
+    padding: 20px;
+    box-sizing: border-box;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.12),
+        0 0 0 0px #F4C430;
+
+    transition:
+        transform 300ms ease,
+        box-shadow 300ms ease,
+        border-color 300ms ease;
+}
+
+/* ── Card hover effect ── */
+/*
+ * HOW HOVER PAUSE WORKS (CSS side)
+ * ─────────────────────────────────
+ * The pause itself is driven by `animationPlayState` toggled in React (JS).
+ * The visual card effects (scale + glow) are handled here purely in CSS
+ * for maximum performance — no JS state machine needed for the visuals.
+ */
+.marquee-card:hover .marquee-card-inner {
+    transform: scale(1.07);
+    border-color: #F4C430;
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.18),
+        0 0 0 3px rgba(244, 196, 48, 0.55),
+        0 0 18px rgba(244, 196, 48, 0.25);
+}
+
+/* ── Logo image ── */
+.marquee-logo {
+    max-width: 100%;
+    max-height: 90px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+    display: block;
+
+    /* Transparent PNGs render cleanly on the white card \u2014 no tricks needed */
+    filter: grayscale(10%) brightness(0.97);
+    transition: filter 300ms ease;
+}
+
+.marquee-card:hover .marquee-logo {
+    filter: grayscale(0%) brightness(1);
+}
+
+/* ── Responsive tweaks ── */
+@media (max-width: 768px) {
+    .trusted-marquee-section {
+        padding: 44px 0 36px;
+    }
+
+    .trusted-marquee-title {
+        font-size: 1.4rem;
+    }
+
+    .marquee-card {
+        width: 128px;
+        height: 80px;
+    }
+
+    .marquee-card-inner {
+        padding: 12px 14px;
+        border-radius: 12px;
+    }
+
+    .marquee-logo {
+        max-height: 44px;
+    }
+
+    /* Narrower fades on mobile */
+    .marquee-viewport::before,
+    .marquee-viewport::after {
+        width: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .marquee-card {
+        width: 110px;
+        height: 72px;
+    }
+
+    .marquee-card-inner {
+        padding: 10px 12px;
+        border-radius: 10px;
+    }
+
+    .marquee-viewport::before,
+    .marquee-viewport::after {
+        width: 40px;
+    }
+}

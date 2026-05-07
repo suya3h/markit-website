@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import LetsTalk from './components/LetsTalk';
 // import About from './pages/About';
 import Services from './pages/Services';
-// import Projects from './pages/Projects';
+import Projects from './pages/Projects';
 // import Contact from './pages/Contact';
 import './styles/App.css';
 import './styles/LetsTalk.css';
@@ -29,9 +29,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home onLetsTalkOpen={openLetsTalk} />} />
             <Route path="/services" element={<Services onLetsTalkOpen={openLetsTalk} />} />
-            {/* <Route path="/about" element={<About />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/projects" element={<Projects />} /> */}
+            <Route path="/projects" element={<Projects />} />
             {/* The old /contact route is no longer needed */}
           </Routes>
         </main>
